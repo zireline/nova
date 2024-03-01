@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 
 public class App extends Application {
 
+  @SuppressWarnings("exports")
   @Override
   public void start(Stage stage) {
     GridPlane root = new GridPlane();
