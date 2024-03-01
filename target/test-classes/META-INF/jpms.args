@@ -1,0 +1,4 @@
+--patch-module
+com.zireline=_
+--add-reads
+com.zireline=ALL-UNNAMED
