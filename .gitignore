@@ -1,0 +1,27 @@
+# Compiled class files
+target/
+
+# Maven build directory
+/.mvn/
+
+# IntelliJ IDEA files
+.idea/
+
+# Eclipse files
+.classpath
+.project
+.settings/
+
+# NetBeans files
+/nbproject/
+/build/
+
+# Mac OS files
+.DS_Store
+
+# Windows thumbnail cache files
+Thumbs.db
+
+# Gradle files
+.gradle/
+build/
