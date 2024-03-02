@@ -1,6 +1,7 @@
 package com.zireline;
 
-import com.zireline.display.GridPlane;
+import com.zireline.collinearpoints.display.GridPlane;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

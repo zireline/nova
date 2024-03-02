@@ -1,4 +1,4 @@
-package com.zireline.display;
+package com.zireline.collinearpoints.display;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;

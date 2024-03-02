@@ -1,4 +1,4 @@
-package com.zireline.algorithm;
+package com.zireline.collinearpoints.algorithm;
 
 import java.util.ArrayList;
 import java.util.List;
