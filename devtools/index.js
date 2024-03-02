@@ -38,6 +38,10 @@ function killProcess(pid) {
   exec(`taskkill /PID ${pid}`, (error) => {
     if (error) {
       console.log(`Error killing process: ${error}`);
+      if (error.message.includes('not found')) {
+        console.log('Process not found, starting a new one...');
+        startProcess();
+      }
     } else {
       console.log('Previous process killed.');
       startProcess();
