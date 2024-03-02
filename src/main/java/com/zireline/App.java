@@ -15,6 +15,10 @@ public class App extends Application {
     var scene = new Scene(root, 500, 500);
     stage.setScene(scene);
     stage.show();
+
+    // Do not modify
+    long pid = ProcessIdRetriever.getPid(ProcessHandle.current());
+    System.out.println("PID: " + pid);
   }
 
   public static void main(String[] args) {

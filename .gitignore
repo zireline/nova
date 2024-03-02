@@ -1,5 +1,6 @@
 # Compiled sources
 **/target/
+devtools/node_modules/
 
 # Maven target directory
 /target/
@@ -28,3 +29,9 @@ Thumbs.db
 # Gradle files
 .gradle/
 build/
+
+# Ignore all .env.* files
+.env.*
+
+# But do not ignore .env.commands
+!.env.commands
