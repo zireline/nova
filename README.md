@@ -1,6 +1,6 @@
 # 🚀 Nova App
 
-Nova App is a brief description of your application.
+Algo implementation stuff
 
 ## 📋 Prerequisites
 
@@ -25,7 +25,19 @@ git clone https://github.com/your-username/nova.git
 cd nova
 ```
 
-3. 🎉 Run the app using the following command:
+3. ⬇️ Install dependencies
+
+```bash
+./devtools npm i
+```
+
+4. 🚧 Run app in Dev mode for Hot-Reloading
+
+```bash
+node ./devtools
+```
+
+5. 🎉 Run the app using the following command:
 
 ```bash
 mvn clean javafx:run
