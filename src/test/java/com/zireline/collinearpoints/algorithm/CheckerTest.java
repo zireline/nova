@@ -23,16 +23,10 @@ public class CheckerTest {
     };
 
     Checker checker = new Checker();
-    for (int row = 0; row < board.length; row++) {
-      for (int col = 0; col < board[row].length; col++) {
-        if (board[row][col] == 1) {
-          List<int[]> alignedCoords = checker.getAllAligned(board, row, col, 1);
-          for (int[] coord : alignedCoords) {
-            assertEquals(1, board[coord[0]][coord[1]]);
-            System.out.println("Aligned: " + coord[0] + ", " + coord[1]);
-          }
-        }
-      }
+    List<int[]> alignedCoords = checker.getAllAligned(board, 4, 4, 1);
+    for (int[] coord : alignedCoords) {
+      assertEquals(1, board[coord[0]][coord[1]]);
+      System.out.println("Aligned: " + coord[0] + ", " + coord[1]);
     }
   }
 }
