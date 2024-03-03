@@ -22,8 +22,8 @@ public class CheckerTest {
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 }
     };
 
-    Checker checker = new Checker();
-    List<int[]> alignedCoords = checker.getAllAligned(board, 4, 4, 1);
+    Checker checker = new Checker(board, 1);
+    List<int[]> alignedCoords = checker.getAllAligned(4, 4);
     for (int[] coord : alignedCoords) {
       assertEquals(1, board[coord[0]][coord[1]]);
       System.out.println("Aligned: " + coord[0] + ", " + coord[1]);

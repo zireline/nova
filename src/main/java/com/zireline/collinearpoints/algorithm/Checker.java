@@ -5,11 +5,20 @@ import java.util.List;
 
 public class Checker {
 
-  public List<int[]> getAllAligned(int[][] board, int startRow, int startColumn, int cellValue) {
+  private final int cellValue;
+  private final int[][] board;
+
+  public Checker(int[][] board, int cellValue) {
+    this.cellValue = cellValue;
+    this.board = board;
+  }
+
+  public List<int[]> getAllAligned(int startRow, int startColumn) {
     List<int[]> alignedCoords = new ArrayList<>();
     alignedCoords.addAll(checkRow(board, startRow, startColumn, cellValue));
     alignedCoords.addAll(checkColumn(board, startRow, startColumn, cellValue));
     alignedCoords.addAll(checkDiagonal(board, startRow, startColumn, cellValue));
+    alignedCoords.addAll(checkReverseDiagonal(board, startRow, startColumn, cellValue));
     return alignedCoords;
   }
 
@@ -36,6 +45,16 @@ public class Checker {
     for (int i = 0; i < board.length && startRow + i < board.length && startColumn + i < board[0].length; i++) {
       if (board[startRow + i][startColumn + i] == cellValue) {
         coords.add(new int[] { startRow + i, startColumn + i });
+      }
+    }
+    return coords;
+  }
+
+  public List<int[]> checkReverseDiagonal(int[][] board, int startRow, int startColumn, int cellValue) {
+    List<int[]> coords = new ArrayList<>();
+    for (int i = 0; i < board.length && startRow + i < board.length && startColumn - i >= 0; i++) {
+      if (board[startRow + i][startColumn - i] == cellValue) {
+        coords.add(new int[] { startRow + i, startColumn - i });
       }
     }
     return coords;
