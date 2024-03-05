@@ -1,29 +1,41 @@
 package com.zireline.collinearpoints.display;
 
+import com.zireline.collinearpoints.Drawable;
+
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Circle;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Shape;
+import javafx.scene.text.Text;
 
 public class GridPlane extends Pane {
+  final int PADDING = 20;
 
   public GridPlane() {
-    Circle[][] gridCircles = new Circle[10][10];
+    Line verticalLine = new Line(0, 0, 0, 500);
+    verticalLine.setStrokeWidth(2);
+    verticalLine.setStroke(Color.BLACK);
+    verticalLine.setTranslateX(PADDING); // add right padding
+    verticalLine.setTranslateY(PADDING); // add down padding
 
-    for (int rowIndex = 0; rowIndex < 10; rowIndex++) {
-      for (int columnIndex = 0; columnIndex < 10; columnIndex++) {
-        // Create a circle (dot) at the center of each cell
-        Circle gridCircle = new Circle(rowIndex * 50 + 25, columnIndex * 50 + 25, 5);
-        gridCircles[rowIndex][columnIndex] = gridCircle;
-        getChildren().add(gridCircle);
-      }
-    }
+    Line horizontalLine = new Line(0, 500, 500, 500);
+    horizontalLine.setStrokeWidth(2);
+    horizontalLine.setStroke(Color.BLACK);
+    horizontalLine.setTranslateX(PADDING); // add right padding
+    horizontalLine.setTranslateY(PADDING); // add down padding
 
-    // Connect some dots
-    Line diagonalLine = new Line(
-        gridCircles[0][0].getCenterX(),
-        gridCircles[0][0].getCenterY(),
-        gridCircles[9][9].getCenterX(),
-        gridCircles[9][9].getCenterY());
-    getChildren().add(diagonalLine);
+    Text label = new Text(0, 500, "(0,0)");
+    label.setTranslateX(20); // add right padding
+    label.setTranslateY(35); // add down padding
+
+    this.getChildren().addAll(verticalLine, horizontalLine, label);
+  }
+
+  public void drawShape(Drawable drawable) {
+    final Shape shape = drawable.draw();
+    shape.setTranslateX(PADDING);
+    shape.setTranslateY(PADDING);
+
+    this.getChildren().add(shape);
   }
 }
