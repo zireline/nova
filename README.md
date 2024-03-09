@@ -6,7 +6,7 @@ Algo implementation stuff
 
 Before you begin, ensure you have met the following requirements:
 
-- 📦 You have installed the latest version of [Java Development Kit (JDK)](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
+- 📦 You have installed the latest version of [Java Development Kit (JDK)](https://jdk.java.net/21/), Follow this [Guide](https://www.baeldung.com/openjdk-windows-installation) to install.
 - 📦 You have installed the latest version of [Apache Maven](https://maven.apache.org/download.cgi)
 
 ## 🚀 Getting Started
