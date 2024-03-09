@@ -28,6 +28,8 @@ public class App extends Application {
   private static final double DEFAULT_Y = 10;
   private static final double DEFAULT_WIDTH = 600;
   private static final double DEFAULT_HEIGHT = 550;
+  private static final double DEFAULT_SCALE_X = 1.0 / 60.0;
+  private static final double DEFAULT_SCALE_Y = 1.0 / 60.0;
   private static final TestDataReader reader = new TestDataReader();
 
   @SuppressWarnings({ "exports" })
@@ -67,7 +69,7 @@ public class App extends Application {
     for (int i = 0; i < length; i++) {
       int pointX = ((List<Integer>) data.get("x")).get(i);
       int pointY = ((List<Integer>) data.get("y")).get(i);
-      points.add(new Point(pointX, pointY));
+      points.add(new Point(pointX * DEFAULT_SCALE_X, pointY * DEFAULT_SCALE_Y));
       System.out.println("Added point: (" + pointX + ", " + pointY + ")");
     }
 
@@ -75,7 +77,8 @@ public class App extends Application {
   }
 
   private void drawPoints(GridPlane root, List<Point> points) {
-   Renderer.render(root, points);
+
+    Renderer.render(root, points);
   }
 
   private void setScene(Stage stage, GridPlane root) {
