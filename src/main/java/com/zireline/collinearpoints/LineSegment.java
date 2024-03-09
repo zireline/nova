@@ -2,6 +2,7 @@ package com.zireline.collinearpoints;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Shape;
 
 public class LineSegment implements Drawable {
   Point p;
@@ -18,5 +19,11 @@ public class LineSegment implements Drawable {
     line.setStroke(Color.BLACK);
     line.setStrokeWidth(2);
     return line;
+  }
+
+  @Override
+  public Shape drawTo(Point that) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'drawTo'");
   }
 }

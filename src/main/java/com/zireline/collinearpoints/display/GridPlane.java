@@ -12,6 +12,7 @@ public class GridPlane extends Pane {
   final int PADDING = 20;
 
   public GridPlane() {
+
     Line verticalLine = new Line(0, 0, 0, 500);
     verticalLine.setStrokeWidth(2);
     verticalLine.setStroke(Color.BLACK);
@@ -36,6 +37,12 @@ public class GridPlane extends Pane {
     shape.setTranslateX(PADDING);
     shape.setTranslateY(PADDING);
 
+    this.getChildren().add(shape);
+  }
+
+  public void drawShape(Shape shape) {
+    shape.setTranslateX(PADDING);
+    shape.setTranslateY(PADDING);
     this.getChildren().add(shape);
   }
 }
