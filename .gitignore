@@ -3,7 +3,7 @@
 devtools/node_modules/
 
 # Maven target directory
-/target/
+target
 
 # Maven build directory
 /.mvn/
