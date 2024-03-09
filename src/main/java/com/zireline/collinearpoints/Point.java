@@ -8,6 +8,10 @@ public class Point implements Drawable {
   double x;
   double y;
 
+  public Point() {
+    // default constructor
+  }
+
   public double getX() {
     return x;
   }

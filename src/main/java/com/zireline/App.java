@@ -23,6 +23,7 @@ public class App extends Application {
   private static final double DEFAULT_WIDTH = 600;
   private static final double DEFAULT_HEIGHT = 550;
 
+  @SuppressWarnings("exports")
   @Override
   public void start(Stage stage) {
     GridPlane root = new GridPlane();
