@@ -5,7 +5,6 @@ import com.zireline.collinearpoints.Point;
 import com.zireline.collinearpoints.display.GridPlane;
 
 import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
