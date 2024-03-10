@@ -26,4 +26,9 @@ public class LineSegment implements Drawable {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'drawTo'");
   }
+
+  @Override
+  public String toString() {
+    return "LineSegment [" + p.toString() + " -> " + q.toString() + "]";
+  }
 }
