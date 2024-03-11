@@ -8,6 +8,10 @@ public class LineSegment implements Drawable {
   Point p;
   Point q;
 
+  public LineSegment() {
+    // default constructor
+  }
+
   public LineSegment(Point p, Point q) {
     this.p = p;
     this.q = q;
@@ -15,9 +19,7 @@ public class LineSegment implements Drawable {
 
   @Override
   public Line draw() {
-    int maxY = 500;
-
-    Line line = new Line(p.getX(), maxY - p.getY(), q.getX(), maxY - q.getY());
+    Line line = new Line(p.getX(), p.getY(), q.getX(), q.getY());
     line.setStroke(Color.RED);
     line.setStrokeWidth(2);
     return line;
@@ -33,4 +35,21 @@ public class LineSegment implements Drawable {
   public String toString() {
     return "LineSegment [" + p.toString() + " -> " + q.toString() + "]";
   }
+
+  public Point getP() {
+    return p;
+  }
+
+  public Point getQ() {
+    return q;
+  }
+
+  public void setP(Point p) {
+    this.p = p;
+  }
+
+  public void setQ(Point q) {
+    this.q = q;
+  }
+
 }
