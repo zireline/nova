@@ -4,8 +4,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
+import java.util.Comparator;
 
-public class Point implements Drawable {
+public class Point implements Drawable, Comparable<Point> {
   private double x;
   private double y;
 
@@ -68,5 +69,24 @@ public class Point implements Drawable {
 
   public void setY(double y) {
     this.y = y;
+  }
+
+  // compare two points by y-coordinates, breaking ties by x-coordinates
+  @Override
+  public int compareTo(Point that) {
+    if (this.y < that.y)
+      return -1;
+    if (this.y > that.y)
+      return +1;
+    if (this.x < that.x)
+      return -1;
+    if (this.x > that.x)
+      return +1;
+    return 0;
+  }
+
+  // compare two points by the slopes they make with this point
+  public Comparator<Point> slopeOrder() {
+    return Comparator.comparingDouble(this::slopeTo);
   }
 }
