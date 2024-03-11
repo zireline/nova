@@ -1,5 +1,7 @@
 package com.zireline.collinearpoints;
 
+import com.zireline.collinearpoints.algorithm.Enums;
+
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -17,16 +19,8 @@ public class Point implements Drawable {
     return x;
   }
 
-  public void setX(double x) {
-    this.x = x;
-  }
-
   public double getY() {
     return y;
-  }
-
-  public void setY(double y) {
-    this.y = y;
   }
 
   public Point(double x, double y) {
@@ -36,20 +30,27 @@ public class Point implements Drawable {
 
   public double slopeTo(Point that) {
     if (this.x == that.x) {
+
       if (this.y == that.y) {
         return Double.NEGATIVE_INFINITY;
       }
+
       return Double.POSITIVE_INFINITY;
     }
+
     if (this.y == that.y) {
       return 0;
     }
+
+    System.out.println("SLOPING: " + this + "/" + that);
+
     return (that.y - this.y) / (that.x - this.x);
   }
 
   @Override
   public Shape draw() {
-    Circle circle = new Circle(this.x, 500 - this.y, 4);
+    System.out.println("Drawing: (" + this.x + ", " + (500 - this.y) + ")");
+    Circle circle = new Circle(this.x, 500 - this.y, 3);
     circle.setFill(Color.BLUE);
     return circle;
   }
