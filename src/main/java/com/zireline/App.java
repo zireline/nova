@@ -36,7 +36,7 @@ public class App extends Application {
   public void start(Stage stage) {
     try {
       GridPlane root = new GridPlane();
-      List<Point> points = readPointsFromFile("src/resources/test-data/grid4x4.txt");
+      List<Point> points = readPointsFromFile("src/resources/test-data/rs1423.txt");
       drawPoints(root, points);
       setScene(stage, root);
     } catch (IOException e) {
