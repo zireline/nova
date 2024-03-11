@@ -16,11 +16,11 @@ public class Renderer {
     for (LineSegment segment : collinearPoints.segments()) {
       System.out.println("SEGMENT: " + segment.toString());
 
-      double scaledXP = Math.ceil(segment.getP().getX() * Enums.DEFAULT_SCALE_X);
-      double scaledYP = Math.ceil(segment.getP().getY() * Enums.DEFAULT_SCALE_Y);
+      double scaledXP = segment.getP().getX() * Enums.DEFAULT_SCALE_X;
+      double scaledYP = segment.getP().getY() * Enums.DEFAULT_SCALE_Y;
 
-      double scaledXQ = Math.ceil(segment.getQ().getX() * Enums.DEFAULT_SCALE_X);
-      double scaledYQ = Math.ceil(segment.getQ().getY() * Enums.DEFAULT_SCALE_Y);
+      double scaledXQ = segment.getQ().getX() * Enums.DEFAULT_SCALE_X;
+      double scaledYQ = segment.getQ().getY() * Enums.DEFAULT_SCALE_Y;
 
       segment.setP(new Point(scaledXP, scaledYP));
       segment.setQ(new Point(scaledXQ, scaledYQ));
@@ -29,25 +29,25 @@ public class Renderer {
     }
 
     for (Point currentPoint : points) {
-      double scaledX = Math.ceil(currentPoint.getX() * Enums.DEFAULT_SCALE_X);
-      double scaledY = Math.ceil(currentPoint.getY() * Enums.DEFAULT_SCALE_Y);
+      double scaledX = currentPoint.getX() * Enums.DEFAULT_SCALE_X;
+      double scaledY = currentPoint.getY() * Enums.DEFAULT_SCALE_Y;
 
       currentPoint.setX(scaledX);
       currentPoint.setY(scaledY);
 
       root.drawShape(currentPoint);
 
-      // Create a label for the point
-      Label label = new Label("(" + currentPoint.getX() + ", " + currentPoint.getY() + ")");
-      label.setLayoutX(currentPoint.getX());
-      label.setLayoutY(currentPoint.getY());
-      label.setTranslateX(20);
-      label.setTranslateY(500 - 20);
+      // // Create a label for the point
+      // Label label = new Label("(" + currentPoint.getX() + ", " + currentPoint.getY() + ")");
+      // label.setLayoutX(currentPoint.getX());
+      // label.setLayoutY(currentPoint.getY());
+      // label.setTranslateX(20);
+      // label.setTranslateY(500 - 20);
 
-      label.setScaleY(-1);
+      // label.setScaleY(-1);
 
-      // Add the label to the root
-      root.getChildren().add(label);
+      // // Add the label to the root
+      // root.getChildren().add(label);
     }
 
   }
