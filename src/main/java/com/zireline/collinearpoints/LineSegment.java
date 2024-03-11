@@ -5,8 +5,8 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
 
 public class LineSegment implements Drawable {
-  Point p;
-  Point q;
+  private Point p;
+  private Point q;
 
   public LineSegment() {
     // default constructor

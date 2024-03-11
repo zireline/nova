@@ -69,11 +69,8 @@ public class App extends Application {
       int pointX = ((List<Integer>) data.get("x")).get(i);
       int pointY = ((List<Integer>) data.get("y")).get(i);
 
-      double scaledX = Math.ceil(pointX * Enums.DEFAULT_SCALE_X);
-      double scaledY = Math.ceil(pointY * Enums.DEFAULT_SCALE_Y);
-
-      points.add(new Point(scaledX, scaledY));
-      System.out.println("Added point: (" + scaledX + ", " + scaledY + ")");
+      points.add(new Point(pointX, pointY));
+      System.out.println("Added point: (" + pointX + ", " + pointY + ")");
     }
 
     return points;
