@@ -9,8 +9,6 @@ public class PointsWithSlope {
   public PointsWithSlope(Point point, Double slope) {
     this.point = point;
     this.slope = slope;
-
-    System.out.println("NEW SLOPE: " + slope);
   }
 
   public Point getPoint() {

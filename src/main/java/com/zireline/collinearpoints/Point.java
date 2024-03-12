@@ -44,8 +44,7 @@ public class Point implements Drawable, Comparable<Point> {
 
   @Override
   public Shape draw() {
-    System.out.println("Drawing: (" + this.x + ", " + this.y + ")");
-    Circle circle = new Circle(this.x, this.y, 3);
+    Circle circle = new Circle(this.x, this.y, 0.5);
     circle.setFill(Color.BLUE);
     return circle;
   }
