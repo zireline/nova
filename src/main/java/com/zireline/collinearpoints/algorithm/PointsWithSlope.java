@@ -20,4 +20,9 @@ public class PointsWithSlope {
   public Double getSlope() {
     return slope;
   }
+
+  @Override
+  public String toString() {
+    return "PointsWithSlope [point=" + point + ", slope=" + slope + "]";
+  }
 }

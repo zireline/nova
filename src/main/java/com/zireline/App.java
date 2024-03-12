@@ -7,14 +7,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.prefs.Preferences;
 
+import com.zireline.collinearpoints.BruteCollinearPoints;
 import com.zireline.collinearpoints.LineSegment;
 import com.zireline.collinearpoints.Point;
 import com.zireline.collinearpoints.Renderer;
 import com.zireline.collinearpoints.algorithm.Enums;
+import com.zireline.collinearpoints.algorithm.FastCollinearPoints;
 import com.zireline.collinearpoints.display.GridPlane;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -36,8 +39,36 @@ public class App extends Application {
   public void start(Stage stage) {
     try {
       GridPlane root = new GridPlane();
-      List<Point> points = readPointsFromFile("src/resources/test-data/input8.txt");
-      drawPoints(root, points);
+
+      List<String> filenames = reader.getFileNames("src/resources/test-data");
+
+      ComboBox<String> fileComboBox = new ComboBox<>();
+      fileComboBox.getItems().addAll(filenames);
+
+      ComboBox<String> methodComboBox = new ComboBox<>();
+      methodComboBox.getItems().addAll("Brute Force", "Fast");
+
+      fileComboBox.setOnAction(event -> {
+        root.clearShapes();
+        String selectedFile = fileComboBox.getSelectionModel().getSelectedItem();
+        try {
+          List<Point> points = readPointsFromFile("src/resources/test-data/" + selectedFile);
+          String selectedMethod = methodComboBox.getSelectionModel().getSelectedItem();
+          if (selectedMethod.equals("Brute Force")) {
+            BruteCollinearPoints collinearPoints = new BruteCollinearPoints(points);
+            drawPoints(root, points, collinearPoints.segments());
+          } else if (selectedMethod.equals("Fast")) {
+            FastCollinearPoints collinearPoints = new FastCollinearPoints(points);
+            drawPoints(root, points, collinearPoints.segments());
+          }
+        } catch (IOException e) {
+          System.out.println("ERROR READING FILE: " + e.getMessage());
+        }
+      });
+
+      root.addComboBox(fileComboBox, 50);
+      root.addComboBox(methodComboBox, 100);
+
       setScene(stage, root);
     } catch (IOException e) {
       System.out.println("ERROR READING FILE: " + e.getMessage());
@@ -69,19 +100,15 @@ public class App extends Application {
       int pointX = ((List<Integer>) data.get("x")).get(i);
       int pointY = ((List<Integer>) data.get("y")).get(i);
 
-      double scaledX = Math.ceil(pointX * Enums.DEFAULT_SCALE_X);
-      double scaledY = Math.ceil(pointY * Enums.DEFAULT_SCALE_Y);
-
-      points.add(new Point(scaledX, scaledY));
-      System.out.println("Added point: (" + scaledX + ", " + scaledY + ")");
+      points.add(new Point(pointX, pointY));
+      System.out.println("Added point: (" + pointX + ", " + pointY + ")");
     }
 
     return points;
   }
 
-  private void drawPoints(GridPlane root, List<Point> points) {
-
-    Renderer.render(root, points);
+  private void drawPoints(GridPlane root, List<Point> points, List<LineSegment> segments) {
+    Renderer.render(root, points, segments);
   }
 
   private void setScene(Stage stage, GridPlane root) {

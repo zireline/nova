@@ -1,48 +1,73 @@
 package com.zireline.collinearpoints.display;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.zireline.collinearpoints.Drawable;
 
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
-import javafx.scene.text.Text;
 
 public class GridPlane extends Pane {
+  private List<Shape> shapes = new ArrayList<>();
   final int PADDING = 20;
+  final int HEIGHT = 500;
+  final int WIDTH = 500;
 
   public GridPlane() {
 
-    Line verticalLine = new Line(0, 0, 0, 500);
+    Line verticalLine = new Line(0, HEIGHT, 0, 0);
     verticalLine.setStrokeWidth(2);
     verticalLine.setStroke(Color.BLACK);
     verticalLine.setTranslateX(PADDING); // add right padding
-    verticalLine.setTranslateY(PADDING); // add down padding
+    verticalLine.setTranslateY(PADDING); // subtract up padding
+    verticalLine.setTranslateY(HEIGHT);
 
-    Line horizontalLine = new Line(0, 500, 500, 500);
+    Line horizontalLine = new Line(0, 0, WIDTH, 0);
     horizontalLine.setStrokeWidth(2);
     horizontalLine.setStroke(Color.BLACK);
     horizontalLine.setTranslateX(PADDING); // add right padding
-    horizontalLine.setTranslateY(PADDING); // add down padding
+    horizontalLine.setTranslateY(PADDING); // subtract up padding
+    horizontalLine.setTranslateY(HEIGHT);
 
-    Text label = new Text(0, 500, "(0,0)");
-    label.setTranslateX(20); // add right padding
-    label.setTranslateY(35); // add down padding
+    this.setRotate(-180);
+    this.setScaleX(-1);
 
-    this.getChildren().addAll(verticalLine, horizontalLine, label);
+    this.getChildren().addAll(verticalLine, horizontalLine);
   }
 
   public void drawShape(Drawable drawable) {
     final Shape shape = drawable.draw();
     shape.setTranslateX(PADDING);
     shape.setTranslateY(PADDING);
-
+    shape.setTranslateY(HEIGHT);
     this.getChildren().add(shape);
+    shapes.add(shape);
   }
 
   public void drawShape(Shape shape) {
     shape.setTranslateX(PADDING);
     shape.setTranslateY(PADDING);
+    shape.setTranslateY(HEIGHT);
     this.getChildren().add(shape);
+    shapes.add(shape);
+  }
+
+  public void clearShapes() {
+    this.getChildren().removeAll(shapes);
+    shapes.clear();
+  }
+
+  public void addComboBox(ComboBox<String> comboBox, int padding) {
+    comboBox.setTranslateX(PADDING);
+    comboBox.setTranslateY(PADDING);
+    comboBox.setTranslateY(HEIGHT - padding);
+    comboBox.setScaleX(-1);
+    comboBox.setRotate(-180);
+
+    this.getChildren().add(comboBox);
   }
 }
