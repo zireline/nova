@@ -7,16 +7,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.prefs.Preferences;
 
+import com.zireline.collinearpoints.BruteCollinearPoints;
 import com.zireline.collinearpoints.LineSegment;
 import com.zireline.collinearpoints.Point;
 import com.zireline.collinearpoints.Renderer;
-import com.zireline.collinearpoints.algorithm.Enums;
 import com.zireline.collinearpoints.algorithm.FastCollinearPoints;
 import com.zireline.collinearpoints.display.GridPlane;
 
 import javafx.application.Application;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -45,6 +47,7 @@ public class App extends Application {
       fileComboBox.getItems().addAll(filenames);
 
       ComboBox<String> methodComboBox = new ComboBox<>();
+      methodComboBox.setValue("Fast");
       methodComboBox.getItems().addAll("Brute Force", "Fast");
 
       fileComboBox.setOnAction(event -> {
@@ -53,22 +56,30 @@ public class App extends Application {
         try {
           List<Point> points = readPointsFromFile("src/resources/test-data/" + selectedFile);
           String selectedMethod = methodComboBox.getSelectionModel().getSelectedItem();
+          long startTime = System.nanoTime();
+
           if (selectedMethod.equals("Brute Force")) {
-            // BruteForceCollinearPoints collinearPoints = new
-            // BruteForceCollinearPoints(points);
-            FastCollinearPoints collinearPoints = new FastCollinearPoints(points);
+            BruteCollinearPoints collinearPoints = new BruteCollinearPoints(points);
             drawPoints(root, points, collinearPoints.segments());
-          } else if (selectedMethod.equals("Fast")) {
+          }
+
+          if (selectedMethod.equals("Fast")) {
             FastCollinearPoints collinearPoints = new FastCollinearPoints(points);
             drawPoints(root, points, collinearPoints.segments());
           }
+
+          long endTime = System.nanoTime();
+          long duration = (endTime - startTime);
+
+          System.out.println("Execution time in nanoseconds: " + duration);
+          System.out.println("Execution time in milliseconds: " + duration / 1000000);
         } catch (IOException e) {
           System.out.println("ERROR READING FILE: " + e.getMessage());
         }
       });
 
-      root.addComboBox(fileComboBox, 50);
-      root.addComboBox(methodComboBox, 100);
+      root.addComboBox(fileComboBox, 100);
+      root.addComboBox(methodComboBox, 50);
 
       setScene(stage, root);
     } catch (IOException e) {
@@ -102,7 +113,6 @@ public class App extends Application {
       int pointY = ((List<Integer>) data.get("y")).get(i);
 
       points.add(new Point(pointX, pointY));
-      System.out.println("Added point: (" + pointX + ", " + pointY + ")");
     }
 
     return points;
@@ -120,11 +130,24 @@ public class App extends Application {
 
   private void setWindowProperties(Stage stage) {
     Preferences prefs = Preferences.userNodeForPackage(App.class);
-    double x = prefs.getDouble(PREF_WINDOW_X, DEFAULT_X);
-    double y = prefs.getDouble(PREF_WINDOW_Y, DEFAULT_Y);
-    double width = prefs.getDouble(PREF_WINDOW_WIDTH, DEFAULT_WIDTH);
-    double height = prefs.getDouble(PREF_WINDOW_HEIGHT, DEFAULT_HEIGHT);
+
+    double x = prefs.getDouble(PREF_WINDOW_X, 0);
+    double y = prefs.getDouble(PREF_WINDOW_Y, 0);
+    double width = prefs.getDouble(PREF_WINDOW_WIDTH, 800); // default width
+    double height = prefs.getDouble(PREF_WINDOW_HEIGHT, 600); // default height
     boolean maximized = prefs.getBoolean(PREF_WINDOW_MAXIMIZED, false);
+
+    // Check if the saved window position is within the bounds of any screen
+    boolean windowIsOnAScreen = Screen.getScreensForRectangle(x, y, width, height).size() > 0;
+
+    if (!windowIsOnAScreen) {
+      // If not, reset the window position to the primary screen's bounds
+      Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+      x = primaryScreenBounds.getMinX();
+      y = primaryScreenBounds.getMinY();
+      width = primaryScreenBounds.getWidth();
+      height = primaryScreenBounds.getHeight();
+    }
 
     stage.setX(x);
     stage.setY(y);

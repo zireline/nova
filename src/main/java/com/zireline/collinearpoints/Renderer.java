@@ -10,8 +10,6 @@ public class Renderer {
 
     // USAGE
     for (LineSegment segment : segments) {
-      System.out.println("SEGMENT: " + segment.toString());
-
       double scaledXP = segment.getP().getX() * Enums.DEFAULT_SCALE_X;
       double scaledYP = segment.getP().getY() * Enums.DEFAULT_SCALE_Y;
 
@@ -49,3 +47,5 @@ public class Renderer {
 
   }
 }
+
+ 

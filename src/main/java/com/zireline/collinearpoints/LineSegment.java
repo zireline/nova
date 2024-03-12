@@ -20,8 +20,8 @@ public class LineSegment implements Drawable {
   @Override
   public Line draw() {
     Line line = new Line(p.getX(), p.getY(), q.getX(), q.getY());
-    line.setStroke(Color.RED);
-    line.setStrokeWidth(2);
+    line.setStroke(Color.BLACK);
+    line.setStrokeWidth(1);
     return line;
   }
 
