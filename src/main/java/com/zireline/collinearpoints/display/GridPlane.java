@@ -1,14 +1,18 @@
 package com.zireline.collinearpoints.display;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.zireline.collinearpoints.Drawable;
 
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
-import javafx.scene.text.Text;
 
 public class GridPlane extends Pane {
+  private List<Shape> shapes = new ArrayList<>();
   final int PADDING = 20;
   final int HEIGHT = 500;
   final int WIDTH = 500;
@@ -41,6 +45,7 @@ public class GridPlane extends Pane {
     shape.setTranslateY(PADDING);
     shape.setTranslateY(HEIGHT);
     this.getChildren().add(shape);
+    shapes.add(shape);
   }
 
   public void drawShape(Shape shape) {
@@ -48,5 +53,21 @@ public class GridPlane extends Pane {
     shape.setTranslateY(PADDING);
     shape.setTranslateY(HEIGHT);
     this.getChildren().add(shape);
+    shapes.add(shape);
+  }
+
+  public void clearShapes() {
+    this.getChildren().removeAll(shapes);
+    shapes.clear();
+  }
+
+  public void addComboBox(ComboBox<String> comboBox) {
+    comboBox.setTranslateX(PADDING);
+    comboBox.setTranslateY(PADDING);
+    comboBox.setTranslateY(HEIGHT - 50);
+    comboBox.setScaleX(-1);
+    comboBox.setRotate(-180);
+
+    this.getChildren().add(comboBox);
   }
 }

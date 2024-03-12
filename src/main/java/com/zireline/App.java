@@ -11,10 +11,12 @@ import com.zireline.collinearpoints.LineSegment;
 import com.zireline.collinearpoints.Point;
 import com.zireline.collinearpoints.Renderer;
 import com.zireline.collinearpoints.algorithm.Enums;
+import com.zireline.collinearpoints.algorithm.FastCollinearPoints;
 import com.zireline.collinearpoints.display.GridPlane;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -36,8 +38,35 @@ public class App extends Application {
   public void start(Stage stage) {
     try {
       GridPlane root = new GridPlane();
-      List<Point> points = readPointsFromFile("src/resources/test-data/rs1423.txt");
-      drawPoints(root, points);
+
+      List<String> filenames = reader.getFileNames("src/resources/test-data");
+
+      ComboBox<String> fileComboBox = new ComboBox<>();
+      fileComboBox.getItems().addAll(filenames);
+
+      ComboBox<String> methodComboBox = new ComboBox<>();
+      methodComboBox.getItems().addAll("Brute Force", "Fast");
+
+      fileComboBox.setOnAction(event -> {
+        String selectedFile = fileComboBox.getSelectionModel().getSelectedItem();
+        try {
+          List<Point> points = readPointsFromFile("src/resources/test-data/" + selectedFile);
+          String selectedMethod = methodComboBox.getSelectionModel().getSelectedItem();
+          if (selectedMethod.equals("Brute Force")) {
+            BruteForceCollinearPoints collinearPoints = new BruteForceCollinearPoints(points);
+            drawPoints(root, points, collinearPoints.segments());
+          } else if (selectedMethod.equals("Fast")) {
+            FastCollinearPoints collinearPoints = new FastCollinearPoints(points);
+            drawPoints(root, points, collinearPoints.segments());
+          }
+        } catch (IOException e) {
+          System.out.println("ERROR READING FILE: " + e.getMessage());
+        }
+      });
+
+      root.addComboBox(fileComboBox);
+      root.addComboBox(methodComboBox);
+
       setScene(stage, root);
     } catch (IOException e) {
       System.out.println("ERROR READING FILE: " + e.getMessage());
@@ -76,9 +105,8 @@ public class App extends Application {
     return points;
   }
 
-  private void drawPoints(GridPlane root, List<Point> points) {
-
-    Renderer.render(root, points);
+  private void drawPoints(GridPlane root, List<Point> points, List<LineSegment> segments) {
+    Renderer.render(root, points, segments);
   }
 
   private void setScene(Stage stage, GridPlane root) {

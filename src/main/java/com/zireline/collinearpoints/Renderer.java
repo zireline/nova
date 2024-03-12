@@ -3,17 +3,13 @@ package com.zireline.collinearpoints;
 import java.util.List;
 
 import com.zireline.collinearpoints.algorithm.Enums;
-import com.zireline.collinearpoints.algorithm.FastCollinearPoints;
 import com.zireline.collinearpoints.display.GridPlane;
 
-import javafx.scene.control.Label;
-
 public class Renderer {
-  public static void render(GridPlane root, List<Point> points) {
-    FastCollinearPoints collinearPoints = new FastCollinearPoints(points);
+  public static void render(GridPlane root, List<Point> points, List<LineSegment> segments) {
 
     // USAGE
-    for (LineSegment segment : collinearPoints.segments()) {
+    for (LineSegment segment : segments) {
       System.out.println("SEGMENT: " + segment.toString());
 
       double scaledXP = segment.getP().getX() * Enums.DEFAULT_SCALE_X;
@@ -38,7 +34,8 @@ public class Renderer {
       root.drawShape(currentPoint);
 
       // // Create a label for the point
-      // Label label = new Label("(" + currentPoint.getX() + ", " + currentPoint.getY() + ")");
+      // Label label = new Label("(" + currentPoint.getX() + ", " +
+      // currentPoint.getY() + ")");
       // label.setLayoutX(currentPoint.getX());
       // label.setLayoutY(currentPoint.getY());
       // label.setTranslateX(20);

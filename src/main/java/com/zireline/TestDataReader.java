@@ -5,8 +5,21 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class TestDataReader {
+
+  public List<String> getFileNames(String directoryPath) throws IOException {
+    try (Stream<Path> paths = Files.walk(Paths.get(directoryPath))) {
+      return paths
+          .filter(Files::isRegularFile)
+          .filter(p -> p.toString().endsWith(".txt"))
+          .map(Path::getFileName)
+          .map(Path::toString)
+          .collect(Collectors.toList());
+    }
+  }
 
   public Map<String, Object> parseFile(String filePath, List<String> providedColumnNames) throws IOException {
     Path path = Paths.get(filePath);
