@@ -61,10 +61,10 @@ public class GridPlane extends Pane {
     shapes.clear();
   }
 
-  public void addComboBox(ComboBox<String> comboBox) {
+  public void addComboBox(ComboBox<String> comboBox, int padding) {
     comboBox.setTranslateX(PADDING);
     comboBox.setTranslateY(PADDING);
-    comboBox.setTranslateY(HEIGHT - 50);
+    comboBox.setTranslateY(HEIGHT - padding);
     comboBox.setScaleX(-1);
     comboBox.setRotate(-180);
 

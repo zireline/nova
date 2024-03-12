@@ -48,12 +48,15 @@ public class App extends Application {
       methodComboBox.getItems().addAll("Brute Force", "Fast");
 
       fileComboBox.setOnAction(event -> {
+        root.clearShapes();
         String selectedFile = fileComboBox.getSelectionModel().getSelectedItem();
         try {
           List<Point> points = readPointsFromFile("src/resources/test-data/" + selectedFile);
           String selectedMethod = methodComboBox.getSelectionModel().getSelectedItem();
           if (selectedMethod.equals("Brute Force")) {
-            BruteForceCollinearPoints collinearPoints = new BruteForceCollinearPoints(points);
+            // BruteForceCollinearPoints collinearPoints = new
+            // BruteForceCollinearPoints(points);
+            FastCollinearPoints collinearPoints = new FastCollinearPoints(points);
             drawPoints(root, points, collinearPoints.segments());
           } else if (selectedMethod.equals("Fast")) {
             FastCollinearPoints collinearPoints = new FastCollinearPoints(points);
@@ -64,8 +67,8 @@ public class App extends Application {
         }
       });
 
-      root.addComboBox(fileComboBox);
-      root.addComboBox(methodComboBox);
+      root.addComboBox(fileComboBox, 50);
+      root.addComboBox(methodComboBox, 100);
 
       setScene(stage, root);
     } catch (IOException e) {
