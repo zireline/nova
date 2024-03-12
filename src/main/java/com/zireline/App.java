@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.prefs.Preferences;
 
+import com.zireline.collinearpoints.BruteCollinearPoints;
 import com.zireline.collinearpoints.LineSegment;
 import com.zireline.collinearpoints.Point;
 import com.zireline.collinearpoints.Renderer;
@@ -58,9 +59,7 @@ public class App extends Application {
           long startTime = System.nanoTime();
 
           if (selectedMethod.equals("Brute Force")) {
-            // BruteForceCollinearPoints collinearPoints = new
-            // BruteForceCollinearPoints(points);
-            FastCollinearPoints collinearPoints = new FastCollinearPoints(points);
+            BruteCollinearPoints collinearPoints = new BruteCollinearPoints(points);
             drawPoints(root, points, collinearPoints.segments());
           }
 
