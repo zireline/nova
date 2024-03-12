@@ -46,6 +46,7 @@ public class App extends Application {
       fileComboBox.getItems().addAll(filenames);
 
       ComboBox<String> methodComboBox = new ComboBox<>();
+      methodComboBox.setValue("Fast");
       methodComboBox.getItems().addAll("Brute Force", "Fast");
 
       fileComboBox.setOnAction(event -> {
@@ -61,24 +62,25 @@ public class App extends Application {
             // BruteForceCollinearPoints(points);
             FastCollinearPoints collinearPoints = new FastCollinearPoints(points);
             drawPoints(root, points, collinearPoints.segments());
-          } else if (selectedMethod.equals("Fast")) {
+          }
+
+          if (selectedMethod.equals("Fast")) {
             FastCollinearPoints collinearPoints = new FastCollinearPoints(points);
             drawPoints(root, points, collinearPoints.segments());
           }
 
           long endTime = System.nanoTime();
-
-          long duration = (endTime - startTime); // compute the elapsed time in nanoseconds
+          long duration = (endTime - startTime);
 
           System.out.println("Execution time in nanoseconds: " + duration);
-          System.out.println("Execution time in milliseconds: " + duration / 1000000); // convert to milliseconds
+          System.out.println("Execution time in milliseconds: " + duration / 1000000);
         } catch (IOException e) {
           System.out.println("ERROR READING FILE: " + e.getMessage());
         }
       });
 
-      root.addComboBox(fileComboBox, 50);
-      root.addComboBox(methodComboBox, 100);
+      root.addComboBox(fileComboBox, 100);
+      root.addComboBox(methodComboBox, 50);
 
       setScene(stage, root);
     } catch (IOException e) {
